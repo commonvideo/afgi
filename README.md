@@ -1,5 +1,5 @@
 # afgi
-[![](https://jitpack.io/v/commonvideo/coomonutils.svg)](https://jitpack.io/#commonvideo/coomonutils)
+[![](https://jitpack.io/v/commonvideo/afgi.svg)](https://jitpack.io/#commonvideo/afgi)
 
 Step 1. Add the JitPack repository to your build file
 
