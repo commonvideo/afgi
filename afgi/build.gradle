@@ -1,0 +1,63 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+
+android {
+    namespace 'com.afgi.lib'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    implementation 'com.intuit.ssp:ssp-android:1.0.6'
+
+    //todo Google mediation
+    implementation 'com.google.android.gms:play-services-ads:21.3.0'
+    implementation  'com.google.ads.mediation:applovin:11.5.4.0'
+    implementation  'com.google.ads.mediation:ironsource:7.2.5.0'
+    implementation  'com.google.ads.mediation:facebook:6.12.0.0'
+    implementation  'com.unity3d.ads:unity-ads:4.4.1'
+    implementation  'com.google.ads.mediation:unity:4.4.1.0'
+
+    //todo IronSource mediation
+    implementation 'com.ironsource.sdk:mediationsdk:7.2.5'
+    implementation 'com.ironsource.adapters:admobadapter:4.3.31'
+    implementation 'com.ironsource.adapters:facebookadapter:4.3.38'
+    implementation 'com.ironsource.adapters:applovinadapter:4.3.34'
+    implementation 'com.ironsource.adapters:unityadsadapter:4.3.24'
+
+    //todo Facebook Network
+    implementation 'com.facebook.android:audience-network-sdk:6.12.0'
+
+    //todo Applovin Network
+    implementation 'com.applovin.mediation:google-adapter:21.3.0.2'
+    implementation 'com.applovin.mediation:facebook-adapter:6.12.0.0'
+    implementation 'com.applovin.mediation:ironsource-adapter:7.2.5.0.1'
+    implementation 'com.applovin.mediation:unityads-adapter:4.4.1.0'
+}
