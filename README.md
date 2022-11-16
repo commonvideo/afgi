@@ -1,19 +1,18 @@
-[![](https://jitpack.io/v/commonvideo/afgi.svg)](https://jitpack.io/#commonvideo/afgi)
+# afgi
+[![](https://jitpack.io/v/commonvideo/coomonutils.svg)](https://jitpack.io/#commonvideo/coomonutils)
 
 Step 1. Add the JitPack repository to your build file
 
-Add it in your root build.gradle at the end of repositories:
-
-allprojects {
+	allprojects {
 		repositories {
 			...
 			maven { url 'https://jitpack.io' }
 		}
 	}
   
-  
   Step 2. Add the dependency
   
   dependencies {
-	        implementation 'com.github.commonvideo:afgi:Tag'
+	        implementation 'com.github.commonvideo:coomonutils:1.0.0'
 	}
+
