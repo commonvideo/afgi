@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
 
         //TODO  IronSource app id init
-        initIronSource("173539a85")
+        initIronSource("")
 
         setContentView(binding?.root)
 

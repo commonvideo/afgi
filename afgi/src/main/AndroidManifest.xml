@@ -5,7 +5,7 @@
 
         <meta-data
             android:name="applovin.sdk.key"
-            android:value="6gLMf_igWhiz-9TyCViUcX352JoUnON1Wm4wwNAoIG8V69aLh_TldJPHomhHCR_70l-fKWDUWTvaDLTIandlqh" />
+            android:value="X31zJW8ROfKyir7K9V5m1n5oUwP8DDKJcyNJBOhUGpbA0H_lGigrAKLmgcQKLWvlocuGV0n3Xpqc4OUzqETR0s" />
         <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true" />
