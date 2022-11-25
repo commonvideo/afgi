@@ -74,7 +74,8 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'release-cally-1.0.1'
+//                version = 'release-cally-1.0.1'
+                version = 'release-mirrorcast-1.0.1'
             }
         }
     }
