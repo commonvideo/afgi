@@ -12,9 +12,7 @@ import com.facebook.ads.InterstitialAdListener
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
-import com.ironsource.mediationsdk.IronSource
-import com.ironsource.mediationsdk.logger.IronSourceError
-import com.ironsource.mediationsdk.sdk.InterstitialListener
+
 
 private var mInterstitialAd = arrayOfNulls<InterstitialAd?>(2)
 private var applovineInterstitialAd = arrayOfNulls<MaxInterstitialAd?>(2)
@@ -112,7 +110,7 @@ fun Activity.requestApplovine(id: String, isExitAds: Boolean, listener: FullCall
 }
 
 fun requestIronSource(listener: FullCallBack) {
-    if (!IronSource.isInterstitialReady()) {
+    /*if (!IronSource.isInterstitialReady()) {
         IronSource.loadInterstitial()
         IronSource.setInterstitialListener(object : InterstitialListener {
             override fun onInterstitialAdReady() {
@@ -144,7 +142,7 @@ fun requestIronSource(listener: FullCallBack) {
             }
         })
 
-    }
+    }*/
 }
 
 
@@ -153,7 +151,7 @@ fun isExitLoaded(): Boolean {
 }
 
 fun isLoaded(): Boolean {
-    return mInterstitialAd[0] != null || IronSource.isInterstitialReady() || (applovineInterstitialAd[0] != null && applovineInterstitialAd[0]?.isReady == true)
+    return mInterstitialAd[0] != null /*|| IronSource.isInterstitialReady()*/ || (applovineInterstitialAd[0] != null && applovineInterstitialAd[0]?.isReady == true)
 }
 
 
@@ -233,7 +231,7 @@ fun Activity.show(placementKey: String, listener: CallBack) {
 
             }
         })
-    } else if (IronSource.isInterstitialReady()) {
+    } /*else if (IronSource.isInterstitialReady()) {
         if (placementKey.isNotEmpty())
             IronSource.showInterstitial(placementKey)
         else
@@ -266,7 +264,7 @@ fun Activity.show(placementKey: String, listener: CallBack) {
             }
         })
 
-    } else if (isLoaded()) {
+    }*/ else if (isLoaded()) {
         mInterstitialAd[0]?.show(this)
         mInterstitialAd[0]?.fullScreenContentCallback = object : FullScreenContentCallback() {
 

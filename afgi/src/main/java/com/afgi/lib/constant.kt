@@ -9,8 +9,7 @@ import com.facebook.ads.AdSettings
 import com.facebook.ads.AudienceNetworkAds
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
-import com.ironsource.mediationsdk.IronSource
-import com.ironsource.mediationsdk.integration.IntegrationHelper
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -39,38 +38,38 @@ fun testDeviceIds(ids: List<String>) {
     MobileAds.setRequestConfiguration(builder)
 }
 
-fun Activity.onPauseIronSource() {
+/*fun Activity.onPauseIronSource() {
     IronSource.onPause(this)
 }
 
 fun Activity.onResumeIronSource() {
     IronSource.onResume(this)
 
-}
+}*/
 
 
 fun Activity.initIronSource(appId: String) {
-    IntegrationHelper.validateIntegration(this)
-    val sharedPreferences = getSharedPreferences("advertisingId", Context.MODE_PRIVATE)
+    /* IntegrationHelper.validateIntegration(this)
+     val sharedPreferences = getSharedPreferences("advertisingId", Context.MODE_PRIVATE)
 
-    if (sharedPreferences.getString("id", "null") != "null") {
-        IronSource.setUserId(sharedPreferences.getString("id", "userId") ?: "userId")
-        IronSource.init(
-            this@initIronSource, appId
-        ) { Log.e("initIronSource ", " onInitializationComplete") }
-    } else {
-        CoroutineScope(Dispatchers.IO).launch {
-            var advId = IronSource.getAdvertiserId(this@initIronSource)
-            if (TextUtils.isEmpty(advId)) {
-                advId = "userId"
-            }
-            val editor = sharedPreferences.edit()
-            editor.putString("id", advId)
-            editor.apply()
-            IronSource.setUserId(advId)
-            IronSource.init(
-                this@initIronSource, appId
-            ) { Log.e("initIronSource ", " onInitializationComplete") }
-        }
-    }
+     if (sharedPreferences.getString("id", "null") != "null") {
+         IronSource.setUserId(sharedPreferences.getString("id", "userId") ?: "userId")
+         IronSource.init(
+             this@initIronSource, appId
+         ) { Log.e("initIronSource ", " onInitializationComplete") }
+     } else {
+         CoroutineScope(Dispatchers.IO).launch {
+             var advId = IronSource.getAdvertiserId(this@initIronSource)
+             if (TextUtils.isEmpty(advId)) {
+                 advId = "userId"
+             }
+             val editor = sharedPreferences.edit()
+             editor.putString("id", advId)
+             editor.apply()
+             IronSource.setUserId(advId)
+             IronSource.init(
+                 this@initIronSource, appId
+             ) { Log.e("initIronSource ", " onInitializationComplete") }
+         }
+     }*/
 }
