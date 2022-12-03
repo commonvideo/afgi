@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import com.facebook.ads.*
 import com.facebook.ads.AdError
 import com.google.android.gms.ads.*
@@ -16,41 +17,64 @@ import com.google.android.gms.ads.nativead.MediaView
 import com.google.android.gms.ads.nativead.NativeAd
 import com.google.android.gms.ads.nativead.NativeAdView
 
+//0= button color 1=button color 2=title color 3=body title color
 fun Activity.requestNative(
-    placement: String, btnColor: Int,
-    btnTxtColor: Int, layout: LinearLayout, listener: (str: String) -> Unit
+    vararg color: Int,
+    placement: String,
+    listener: (layout: LinearLayout?, status: String) -> Unit
 ) {
-    AdLoader.Builder(
-        this,
-        placement
-    )
-        .forNativeAd { nativeAd ->
-            val adView = layoutInflater
-                .inflate(R.layout.ad_unified_large, null) as NativeAdView
+    if (color.size == 4) {
+        var layout: LinearLayout? = null
 
-            val btn = adView.findViewById<AppCompatButton>(R.id.ad_call_to_action)
-            btn.setBackgroundResource(btnColor)
-            btn.setTextColor(btnTxtColor)
+        AdLoader.Builder(
+            this,
+            placement
+        )
+            .forNativeAd { nativeAd ->
 
-            populateUnifiedNativeAdViewLarge(nativeAd, adView)
-            layout.removeAllViews()
-            layout.addView(adView)
-            adView.bringToFront()
-            layout.invalidate()
-        }
-        .withAdListener(object : AdListener() {
-            override fun onAdFailedToLoad(loadAdError: LoadAdError) {
-                super.onAdFailedToLoad(loadAdError)
-                listener.invoke(loadAdError.toString())
+                layout = LinearLayout(this)
+                layout?.layoutParams =
+                    LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                    )
+                layout?.orientation = LinearLayout.VERTICAL
+
+                val adView = layoutInflater
+                    .inflate(R.layout.ad_unified_large, null) as NativeAdView
+
+                val btn = adView.findViewById<AppCompatButton>(R.id.ad_call_to_action)
+                val adHeadline = adView.findViewById<AppCompatTextView>(R.id.ad_headline)
+                val adBody = adView.findViewById<AppCompatTextView>(R.id.ad_body)
+
+                btn.setBackgroundResource(color[0])
+                btn.setTextColor(ContextCompat.getColor(this, color[1]))
+
+                adHeadline.setTextColor(ContextCompat.getColor(this, color[2]))
+
+                adBody.setTextColor(ContextCompat.getColor(this, color[3]))
+
+                populateUnifiedNativeAdViewLarge(nativeAd, adView)
+                layout?.addView(adView)
+                adView.bringToFront()
+                layout?.invalidate()
             }
+            .withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                    super.onAdFailedToLoad(loadAdError)
+                    listener.invoke(null, loadAdError.toString())
+                }
 
-            override fun onAdLoaded() {
-                super.onAdLoaded()
-                listener.invoke(LOADED_AD)
-            }
-        })
-        .build()
-        .loadAd(AdRequest.Builder().build())
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    listener.invoke(layout, LOADED_AD)
+                }
+            })
+            .build()
+            .loadAd(AdRequest.Builder().build())
+    } else {
+        listener.invoke(null, "Color array must be size 4")
+    }
 }
 
 private fun populateUnifiedNativeAdViewLarge(nativeAd: NativeAd, adView: NativeAdView) {
@@ -116,23 +140,35 @@ private fun populateUnifiedNativeAdViewLarge(nativeAd: NativeAd, adView: NativeA
 
 
 fun Activity.requestNativeFacebook(
+    vararg color: Int,
     placement: String,
-    btnColor: Int,
-    btnTxtColor: Int,
-    layout: LinearLayout,
-    listener: (str: String) -> Unit
+    listener: (layout: LinearLayout?, status: String) -> Unit
 ) {
     val nativeAd = com.facebook.ads.NativeAd(this, placement)
     nativeAd.loadAd(nativeAd.buildLoadAdConfig().withAdListener(object : NativeAdListener {
         override fun onError(p0: Ad?, p1: AdError?) {
-            listener.invoke("errorCode= ${p1?.errorCode} errorMessage=${p1?.errorMessage}")
+            listener.invoke(null, "errorCode= ${p1?.errorCode} errorMessage=${p1?.errorMessage}")
         }
 
         override fun onAdLoaded(ad: Ad?) {
             if (nativeAd != ad) {
+                listener.invoke(null, "error")
                 return
             }
-            inflateAd(nativeAd, btnColor, btnTxtColor, layout, listener)
+            val layout = LinearLayout(this@requestNativeFacebook)
+            layout.layoutParams =
+                LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            layout.orientation = LinearLayout.VERTICAL
+            inflateAd(nativeAd, layout, color) {
+                if (it == LOADED_AD) {
+                    listener.invoke(layout, it)
+                } else {
+                    listener.invoke(null, it)
+                }
+            }
 
         }
 
@@ -149,14 +185,13 @@ fun Activity.requestNativeFacebook(
 
 fun Activity.inflateAd(
     nativeAd: com.facebook.ads.NativeAd,
-    btnColor: Int,
-    btnTxtColor: Int,
     layout: LinearLayout,
-    listener: (str: String) -> Unit
+    color: IntArray,
+    listener: (status: String) -> Unit
 ) {
 
     nativeAd.unregisterView()
-    var nativeAdLayout = NativeAdLayout(this)
+    val nativeAdLayout = NativeAdLayout(this)
     // Add the Ad view into the ad container.
     val inflater = LayoutInflater.from(this)
     // Inflate the Ad view.  The layout referenced should be the one you created in the last step.
@@ -176,6 +211,7 @@ fun Activity.inflateAd(
             adChoicesContainer.removeAllViews()
             adChoicesContainer.addView(adOptionsView, 0)
         } catch (e: NullPointerException) {
+            Log.e("error", "NullPointerException")
         }
 
 
@@ -192,8 +228,11 @@ fun Activity.inflateAd(
         val nativeAdCallToAction =
             adView.findViewById<AppCompatButton>(R.id.nativeAdCallToActionLib)
 
-        nativeAdCallToAction.setBackgroundResource(btnColor)
-        nativeAdCallToAction.setTextColor(btnTxtColor)
+        nativeAdCallToAction.setBackgroundResource(color[0])
+        nativeAdCallToAction.setTextColor(ContextCompat.getColor(this, color[1]))
+        nativeAdTitle.setTextColor(ContextCompat.getColor(this, color[2]))
+
+        nativeAdBody.setTextColor(ContextCompat.getColor(this, color[3]))
 
         // Set the Text.
         nativeAdTitle.text = nativeAd.advertiserName

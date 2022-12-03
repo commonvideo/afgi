@@ -12,6 +12,9 @@ import com.afgi.myapplication.databinding.ActivityNativeBinding
 class NativeActivity : AppCompatActivity() {
     var binding: ActivityNativeBinding? = null
     val sb = StringBuilder()
+
+    //0= button color 1=button color 2=title color 3=body title color
+    val listColor = intArrayOf(R.color.purple_200, R.color.white, R.color.black, R.color.black)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityNativeBinding.inflate(layoutInflater)
@@ -24,48 +27,46 @@ class NativeActivity : AppCompatActivity() {
 
     }
 
-    private fun googleNative(layout: LinearLayout) {
-        requestNative(
-            idNative,
-            R.drawable.btn_ads,
-            R.color.black,
-            layout
-        ) {
-            if (it == LOADED_AD) {
+    private fun googleNative(layoutMain: LinearLayout) {
+
+        requestNative(color = listColor, idNative) { layout, status ->
+            if (status == LOADED_AD) {
                 sb.append("Google native ads loaded\n")
                 binding?.loadingTitle?.text = "Facebook native ads loading..."
-                layout.visibility = View.VISIBLE
+                layoutMain.visibility = View.VISIBLE
+                layoutMain.removeAllViews()
+                layoutMain.addView(layout)
                 binding?.facebookNative?.let {
-                    facebookNative(layout)
+                    facebookNative(layoutMain)
                 }
             } else {
-                sb.append("Google native ads error $it\n")
+                sb.append("Google native ads error $status\n")
                 binding?.loadingTitle?.text = "Facebook native ads loading..."
                 binding?.facebookNative?.let {
-                    facebookNative(layout)
+                    facebookNative(layoutMain)
                 }
             }
         }
     }
 
-    private fun facebookNative(layout: LinearLayout) {
+    private fun facebookNative(layoutMain: LinearLayout) {
         requestNativeFacebook(
-            "YOUR_PLACEMENT_ID",
-            R.drawable.btn_ads,
-            R.color.black,
-            layout
-        ) {
-            if (it == LOADED_AD) {
-                binding?.loadingTitle?.text = "Applovin native ads loading..."
-                layout.visibility = View.VISIBLE
+            color = listColor,
+            "YOUR_PLACEMENT_ID"
+        ) { layout, status ->
+            if (status == LOADED_AD) {
+                layoutMain.visibility = View.VISIBLE
+                layoutMain.removeAllViews()
+                layoutMain.addView(layout)
                 binding?.applovinNative?.let {
                 }
                 sb.append("Facebook native ads loaded\n")
+                binding?.loadingTitle?.text = sb.toString()
             } else {
-                binding?.loadingTitle?.text = "Applovin native ads loading..."
                 binding?.applovinNative?.let {
                 }
-                sb.append("Facebook native ads error =$it\n")
+                sb.append("Facebook native ads error =$status\n")
+                binding?.loadingTitle?.text = sb.toString()
             }
         }
     }
