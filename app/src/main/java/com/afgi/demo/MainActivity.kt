@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.afgi.lib.initIronSource
+import com.afgi.lib.onPauseIronSource
+import com.afgi.lib.onResumeIronSource
 
 import com.afgi.myapplication.databinding.ActivityMainBinding
 
@@ -12,13 +14,13 @@ class MainActivity : AppCompatActivity() {
     //todo add in your Activity
     override fun onResume() {
         super.onResume()
-//        onResumeIronSource()
+        onResumeIronSource()
     }
 
     //todo add in your Activity
     override fun onPause() {
         super.onPause()
-//        onPauseIronSource()
+        onPauseIronSource()
     }
 
     var binding: ActivityMainBinding? = null
