@@ -7,11 +7,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatTextView
-import com.applovin.mediation.MaxAd
-import com.applovin.mediation.MaxError
-import com.applovin.mediation.nativeAds.MaxNativeAdListener
-import com.applovin.mediation.nativeAds.MaxNativeAdLoader
-import com.applovin.mediation.nativeAds.MaxNativeAdView
 import com.facebook.ads.*
 import com.facebook.ads.AdError
 import com.google.android.gms.ads.*
@@ -23,7 +18,7 @@ import com.google.android.gms.ads.nativead.NativeAdView
 
 fun Activity.requestNative(
     placement: String, btnColor: Int,
-    btnTxtColor: Int, layout: LinearLayout, listener: NativeCallBack
+    btnTxtColor: Int, layout: LinearLayout, listener: (str: String) -> Unit
 ) {
     AdLoader.Builder(
         this,
@@ -46,12 +41,12 @@ fun Activity.requestNative(
         .withAdListener(object : AdListener() {
             override fun onAdFailedToLoad(loadAdError: LoadAdError) {
                 super.onAdFailedToLoad(loadAdError)
-                listener.onError(loadAdError.toString())
+                listener.invoke(loadAdError.toString())
             }
 
             override fun onAdLoaded() {
                 super.onAdLoaded()
-                listener.onLoaded()
+                listener.invoke(LOADED_AD)
             }
         })
         .build()
@@ -125,12 +120,12 @@ fun Activity.requestNativeFacebook(
     btnColor: Int,
     btnTxtColor: Int,
     layout: LinearLayout,
-    listener: NativeCallBack
+    listener: (str: String) -> Unit
 ) {
     val nativeAd = com.facebook.ads.NativeAd(this, placement)
     nativeAd.loadAd(nativeAd.buildLoadAdConfig().withAdListener(object : NativeAdListener {
         override fun onError(p0: Ad?, p1: AdError?) {
-            listener.onError("errorCode= ${p1?.errorCode} errorMessage=${p1?.errorMessage}")
+            listener.invoke("errorCode= ${p1?.errorCode} errorMessage=${p1?.errorMessage}")
         }
 
         override fun onAdLoaded(ad: Ad?) {
@@ -138,6 +133,7 @@ fun Activity.requestNativeFacebook(
                 return
             }
             inflateAd(nativeAd, btnColor, btnTxtColor, layout, listener)
+
         }
 
         override fun onAdClicked(p0: Ad?) {
@@ -156,7 +152,7 @@ fun Activity.inflateAd(
     btnColor: Int,
     btnTxtColor: Int,
     layout: LinearLayout,
-    listener: NativeCallBack
+    listener: (str: String) -> Unit
 ) {
 
     nativeAd.unregisterView()
@@ -224,49 +220,9 @@ fun Activity.inflateAd(
         nativeAdLayout.addView(adView)
         layout.addView(nativeAdLayout)
 
-        listener.onLoaded()
+        listener.invoke(LOADED_AD)
     } catch (e: NullPointerException) {
         e.printStackTrace()
-        listener.onError("facebook $e")
+        listener.invoke("facebook $e")
     }
-}
-
-
-fun Activity.requestNativeApplovin(
-    id: String,
-    layout: LinearLayout,
-    listener: NativeCallBack
-) {
-    val nativeAdLoader = MaxNativeAdLoader(id, this)
-    var loadedNativeAd: MaxAd? = null
-    nativeAdLoader.setNativeAdListener(object : MaxNativeAdListener() {
-        override fun onNativeAdLoaded(p0: MaxNativeAdView?, p1: MaxAd?) {
-            super.onNativeAdLoaded(p0, p1)
-            if (loadedNativeAd != null) {
-                nativeAdLoader.destroy(loadedNativeAd)
-            }
-            loadedNativeAd = p1
-            if (layout.childCount > 0) try {
-                layout.removeAllViews()
-            } catch (e: Exception) {
-                Log.e("Exception", "Exception", e)
-            }
-            layout.addView(p0)
-            listener.onLoaded()
-        }
-
-        override fun onNativeAdLoadFailed(p0: String?, p1: MaxError?) {
-            super.onNativeAdLoadFailed(p0, p1)
-            listener.onError("error code =${p1?.code} message=${p1?.message} mediatedNetworkErrorCode=${p1?.mediatedNetworkErrorCode}  mediatedNetworkErrorMessage=${p1?.mediatedNetworkErrorMessage}")
-        }
-
-        override fun onNativeAdClicked(p0: MaxAd?) {
-            super.onNativeAdClicked(p0)
-        }
-
-        override fun onNativeAdExpired(p0: MaxAd?) {
-            super.onNativeAdExpired(p0)
-        }
-    })
-    nativeAdLoader.loadAd()
 }

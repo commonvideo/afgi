@@ -29,66 +29,45 @@ class NativeActivity : AppCompatActivity() {
             idNative,
             R.drawable.btn_ads,
             R.color.black,
-            layout,
-            object : NativeCallBack {
-                override fun onLoaded() {
-                    sb.append("Google native ads loaded\n")
-                    binding?.loadingTitle?.text = "Facebook native ads loading..."
-                    layout.visibility = View.VISIBLE
-                    binding?.facebookNative?.let {
-                        facebookNative(it)
-                    }
-
+            layout
+        ) {
+            if (it == LOADED_AD) {
+                sb.append("Google native ads loaded\n")
+                binding?.loadingTitle?.text = "Facebook native ads loading..."
+                layout.visibility = View.VISIBLE
+                binding?.facebookNative?.let {
+                    facebookNative(layout)
                 }
-
-                override fun onError(error: String) {
-                    sb.append("Google native ads error $error\n")
-                    binding?.loadingTitle?.text = "Facebook native ads loading..."
-                    binding?.facebookNative?.let {
-                        facebookNative(it)
-                    }
+            } else {
+                sb.append("Google native ads error $it\n")
+                binding?.loadingTitle?.text = "Facebook native ads loading..."
+                binding?.facebookNative?.let {
+                    facebookNative(layout)
                 }
-            })
+            }
+        }
     }
 
     private fun facebookNative(layout: LinearLayout) {
-        requestNativeFacebook("YOUR_PLACEMENT_ID",
+        requestNativeFacebook(
+            "YOUR_PLACEMENT_ID",
             R.drawable.btn_ads,
             R.color.black,
-            layout,
-            object : NativeCallBack {
-                override fun onLoaded() {
-                    binding?.loadingTitle?.text = "Applovin native ads loading..."
-                    layout.visibility = View.VISIBLE
-                    binding?.applovinNative?.let {
-                        appLovinNative(it)
-                    }
-                    sb.append("Facebook native ads loaded\n")
+            layout
+        ) {
+            if (it == LOADED_AD) {
+                binding?.loadingTitle?.text = "Applovin native ads loading..."
+                layout.visibility = View.VISIBLE
+                binding?.applovinNative?.let {
                 }
-
-                override fun onError(error: String) {
-                    binding?.loadingTitle?.text = "Applovin native ads loading..."
-                    binding?.applovinNative?.let {
-                        appLovinNative(it)
-                    }
-                    sb.append("Facebook native ads error =$error\n")
+                sb.append("Facebook native ads loaded\n")
+            } else {
+                binding?.loadingTitle?.text = "Applovin native ads loading..."
+                binding?.applovinNative?.let {
                 }
-            })
+                sb.append("Facebook native ads error =$it\n")
+            }
+        }
     }
 
-    private fun appLovinNative(layout: LinearLayout) {
-        requestNativeApplovin("id", layout, object : NativeCallBack {
-            override fun onLoaded() {
-                sb.append("Applovin native ads loaded\n")
-                binding?.progress?.visibility = View.INVISIBLE
-                binding?.loadingTitle?.text = sb.toString()
-            }
-
-            override fun onError(error: String) {
-                sb.append("Applovin native ads error =$error \n")
-                binding?.progress?.visibility = View.INVISIBLE
-                binding?.loadingTitle?.text = sb.toString()
-            }
-        })
-    }
 }

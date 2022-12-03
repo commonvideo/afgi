@@ -41,25 +41,17 @@ class AppOpenManager(val app: App) : LifecycleObserver,
     }
 
     private fun appOpenRequest() {
-        app.requestAppOpen("", object : AppOpenCallBack {
-            override fun onLoaded() {
+        app.requestAppOpen("") {
 
-            }
-
-            override fun onError(error: String) {
-
-            }
-        })
+        }
     }
 
 
     private fun showAdIfAvailable() {
         if (!isShowingAd && isLoadedAppOpen()) {
-            currentActivity?.showAppOpen(object : CallBack {
-                override fun onCompleted() {
-                    fetchAd()
-                }
-            })
+            currentActivity?.showAppOpen {
+                fetchAd()
+            }
         } else {
             Log.e(TAG, "Can not show ad.")
             fetchAd()

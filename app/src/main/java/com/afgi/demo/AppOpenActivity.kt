@@ -17,29 +17,14 @@ class AppOpenActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.googleAppOpen?.setOnClickListener {
-            binding?.loadingText?.text="Google appopn loading..."
-            requestAppOpen(idAppOpen, object : AppOpenCallBack {
-                override fun onLoaded() {
-                    binding?.loadingText?.text=""
-                }
-
-                override fun onError(error: String) {
-                    binding?.loadingText?.text=error
-                }
-            })
+            binding?.loadingText?.text = "Google appopn loading..."
+            requestAppOpen(idAppOpen) {
+                binding?.loadingText?.text = it
+            }
             show()
         }
         binding?.applovinAppOpen?.setOnClickListener {
-            binding?.loadingText?.text="Applovine appopn loading..."
-            requestApplovinAppOpen("id", object : AppOpenCallBack {
-                override fun onLoaded() {
-                    binding?.loadingText?.text=""
-                }
-
-                override fun onError(error: String) {
-                    binding?.loadingText?.text=error
-                }
-            })
+            binding?.loadingText?.text = "Applovine appopn loading..."
             show()
         }
     }
@@ -49,11 +34,7 @@ class AppOpenActivity : AppCompatActivity() {
         val runnable: Runnable = object : Runnable {
             override fun run() {
                 if (isLoadedAppOpen()) {
-                    showAppOpen(object : CallBack {
-                        override fun onCompleted() {
-
-                        }
-                    })
+                    showAppOpen {}
                 } else {
                     handler.postDelayed(this, 250)
                 }

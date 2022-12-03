@@ -18,38 +18,29 @@ class FullAdsActivity : AppCompatActivity() {
 
         binding?.google?.setOnClickListener {
             binding?.loadingText?.text = "Google Loading..."
-            request(idFullScreen, isExitAds = false, object : FullCallBack {
-                override fun onError(error: String) {
-                    binding?.loadingText?.text = error
+            request(idFullScreen, isExitAds = false) {
+                if (it != LOADED_AD) {
+                    binding?.loadingText?.text = it
                 }
-            })
+            }
             showAd()
         }
         binding?.facebook?.setOnClickListener {
             binding?.loadingText?.text = "Facebook Loading..."
-            requestFacebook("YOUR_PLACEMENT_ID", object : FullCallBack {
-                override fun onError(error: String) {
-                    binding?.loadingText?.text = error
+            requestFacebook("YOUR_PLACEMENT_ID") {
+                if (it != LOADED_AD) {
+                    binding?.loadingText?.text = it
                 }
-            })
+            }
             showAd()
         }
         binding?.ironsource?.setOnClickListener {
             binding?.loadingText?.text = "IronSource Loading..."
-            requestIronSource(object : FullCallBack {
-                override fun onError(error: String) {
-                    binding?.loadingText?.text = error
+            requestIronSource {
+                if (it != LOADED_AD) {
+                    binding?.loadingText?.text = it
                 }
-            })
-            showAd()
-        }
-        binding?.applovine?.setOnClickListener {
-            binding?.loadingText?.text = "Applovine Loading..."
-            requestApplovine("id",isExitAds = false, object : FullCallBack {
-                override fun onError(error: String) {
-                    binding?.loadingText?.text = error
-                }
-            })
+            }
             showAd()
         }
     }
@@ -65,11 +56,9 @@ class FullAdsActivity : AppCompatActivity() {
                     binding?.loadingText?.text = ""
                 } else if (isLoaded()) {
                     //todo param ironsource key
-                    show("", object : CallBack {
-                        override fun onCompleted() {
-                            binding?.loadingText?.text = ""
-                        }
-                    })
+                    show(""){
+                        binding?.loadingText?.text = ""
+                    }
                 } else {
                     handler.postDelayed(this, 250)
                 }
