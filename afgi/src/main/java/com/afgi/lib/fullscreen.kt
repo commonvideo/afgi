@@ -151,7 +151,7 @@ fun Activity.showExit(listener: () -> Unit) {
 
             }
         })
-    } else if (isLoaded()) {
+    } else if (mInterstitialAd[1] != null) {
         mInterstitialAd[1]?.show(this)
         mInterstitialAd[1]?.fullScreenContentCallback = object : FullScreenContentCallback() {
 
@@ -233,7 +233,7 @@ fun Activity.show(placementKey: String, listener: () -> Unit) {
             }
         })
 
-    } else if (isLoaded()) {
+    } else if ( mInterstitialAd[0]!=null) {
         mInterstitialAd[0]?.show(this)
         mInterstitialAd[0]?.fullScreenContentCallback = object : FullScreenContentCallback() {
 
