@@ -25,6 +25,9 @@ class AppOpenActivity : AppCompatActivity() {
         }
         binding?.applovinAppOpen?.setOnClickListener {
             binding?.loadingText?.text = "Applovine appopn loading..."
+            requestApplovinAppOpen("id"){
+                binding?.loadingText?.text = it
+            }
             show()
         }
     }
@@ -33,6 +36,7 @@ class AppOpenActivity : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
         val runnable: Runnable = object : Runnable {
             override fun run() {
+                Log.e("showAppOpen ","showAppOpen ${isLoadedAppOpen()}")
                 if (isLoadedAppOpen()) {
                     showAppOpen {}
                 } else {

@@ -25,6 +25,13 @@
             android:layout_marginTop="@dimen/_10sdp" />
 
         <LinearLayout
+            android:id="@+id/applovinNative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical" />
+
+        <LinearLayout
             android:id="@+id/googleNative"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_230sdp"
@@ -38,12 +45,7 @@
             android:layout_margin="@dimen/_5sdp"
             android:orientation="vertical" />
 
-        <LinearLayout
-            android:id="@+id/applovinNative"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_230sdp"
-            android:layout_margin="@dimen/_5sdp"
-            android:orientation="vertical" />
+
     </LinearLayout>
 
 

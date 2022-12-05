@@ -21,52 +21,51 @@ class BannerActivity : AppCompatActivity() {
             googleBanner(it)
         }
 
+        requestAppLovinBanner("id") { layout, status ->
+            if (status == LOADED_AD) {
+                binding?.bannerApplovinAds?.visibility = View.VISIBLE
+                binding?.bannerApplovinAds?.removeAllViews()
+                binding?.bannerApplovinAds?.addView(layout)
+                sb.append("AppLovin Banner loaded\n")
+            } else {
+                sb.append("AppLovin Banner error=$status \n")
+            }
+        }
+
     }
 
-    private fun googleBanner(layout: LinearLayout) {
+    private fun googleBanner(layoutMain: LinearLayout) {
         requestBanner(
-            idBanner,
-            layout
-        ) {
-            if (it == LOADED_AD) {
+            idBanner
+        ) { layout, status ->
+            if (status == LOADED_AD) {
+
+                layoutMain.visibility = View.VISIBLE
+                layoutMain.removeAllViews()
+                layoutMain.addView(layout)
+
                 sb.append("Google Banner loaded\n")
-                binding?.loadingTitle?.text = "Loading Google Native Banner"
-                binding?.bannerGoogleNativeAds?.let { googleNative(layout) }
+                binding?.loadingTitle?.text = "Loading facebookBanner Banner"
+                binding?.bannerGoogleNativeAds?.let { facebookBanner(it) }
             } else {
-                binding?.loadingTitle?.text = "Loading Google Native Banner"
-                binding?.bannerGoogleNativeAds?.let { googleNative(layout) }
-                sb.append("Google Banner error=$it \n")
+                binding?.loadingTitle?.text = "Loading facebookBanner Banner"
+                binding?.bannerGoogleNativeAds?.let { facebookBanner(it) }
+                sb.append("Google Banner error=$status \n")
             }
         }
     }
 
-    private fun googleNative(layout: LinearLayout) {
-        requestNativeBanner(
-            idNative,
-            layout,
-            com.afgi.myapplication.R.drawable.btn_ads,
-            com.afgi.myapplication.R.color.black
-        ) {
-            if (it == LOADED_AD) {
-                sb.append("Google Native Banner loaded\n")
-                binding?.loadingTitle?.text = "Loading Facebook Banner"
-                binding?.bannerFacebookAds?.let { facebookBanner(layout) }
-            } else {
-                binding?.loadingTitle?.text = "Loading Facebook Banner"
-                binding?.bannerFacebookAds?.let { facebookBanner(layout) }
-                sb.append("Google Native Banner error =$it \n")
-            }
-        }
-    }
-
-    private fun facebookBanner(layout: LinearLayout) {
-        requestFacebookBanner("YOUR_PLACEMENT_ID", layout) {
-            if (it == LOADED_AD) {
+    private fun facebookBanner(layoutMain: LinearLayout) {
+        requestFacebookBanner("YOUR_PLACEMENT_ID") { layout, status ->
+            if (status == LOADED_AD) {
+                layoutMain.visibility = View.VISIBLE
+                layoutMain.removeAllViews()
+                layoutMain.addView(layout)
                 sb.append("Facebook Banner loaded\n")
                 binding?.loadingTitle?.text = "Loading  Applovine Banner"
             } else {
                 binding?.loadingTitle?.text = "Loading  Applovine Banner"
-                sb.append("Facebook Banner error=$it \n")
+                sb.append("Facebook Banner error=$status \n")
             }
         }
     }

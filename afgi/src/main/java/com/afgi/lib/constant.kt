@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.text.TextUtils
 import android.util.Log
+import com.applovin.sdk.AppLovinSdk
 import com.facebook.ads.AdSettings
 import com.facebook.ads.AudienceNetworkAds
 import com.google.android.gms.ads.MobileAds
@@ -26,6 +27,8 @@ var idAppOpen = "/6499/example/app-open"
 fun Context.initialize() {
     MobileAds.initialize(this)
     AudienceNetworkAds.initialize(this)
+    AppLovinSdk.getInstance(this).mediationProvider = "max"
+    AppLovinSdk.getInstance(this).initializeSdk {}
 }
 
 fun testDeviceIdsFacebook(ids: String) {

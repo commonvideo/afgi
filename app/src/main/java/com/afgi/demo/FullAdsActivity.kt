@@ -21,7 +21,7 @@ class FullAdsActivity : AppCompatActivity() {
             request(idFullScreen, isExitAds = false) {
                 if (it != LOADED_AD) {
                     binding?.loadingText?.text = it
-                }
+                } else binding?.loadingText?.text = it
             }
             showAd()
         }
@@ -30,7 +30,7 @@ class FullAdsActivity : AppCompatActivity() {
             requestFacebook("YOUR_PLACEMENT_ID") {
                 if (it != LOADED_AD) {
                     binding?.loadingText?.text = it
-                }
+                } else binding?.loadingText?.text = it
             }
             showAd()
         }
@@ -39,7 +39,16 @@ class FullAdsActivity : AppCompatActivity() {
             requestIronSource {
                 if (it != LOADED_AD) {
                     binding?.loadingText?.text = it
-                }
+                } else binding?.loadingText?.text = it
+            }
+            showAd()
+        }
+        binding?.applovine?.setOnClickListener {
+            binding?.loadingText?.text = "applovine Loading..."
+            requestApplovine("id", true) {
+                if (it != LOADED_AD) {
+                    binding?.loadingText?.text = it
+                } else binding?.loadingText?.text = it
             }
             showAd()
         }
@@ -56,7 +65,11 @@ class FullAdsActivity : AppCompatActivity() {
                     binding?.loadingText?.text = ""
                 } else if (isLoaded()) {
                     //todo param ironsource key
-                    show(""){
+                    show("") {
+                        binding?.loadingText?.text = ""
+                    }
+                } else if (isExitLoaded()) {
+                    showExit {
                         binding?.loadingText?.text = ""
                     }
                 } else {

@@ -19,11 +19,26 @@ class NativeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNativeBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-        binding?.loadingTitle?.text = "Google native ads loading..."
+        /*binding?.loadingTitle?.text = "Google native ads loading..."
         binding?.googleNative?.let {
             googleNative(it)
-        }
+        }*/
 
+
+        requestNativeApplovin(
+            "id"
+        ) { layout, status ->
+            if (status == LOADED_AD) {
+                binding?.applovinNative?.visibility = View.VISIBLE
+                binding?.applovinNative?.removeAllViews()
+                binding?.applovinNative?.addView(layout)
+                sb.append("applovine native ads loaded\n")
+                binding?.loadingTitle?.text = sb.toString()
+            } else {
+                sb.append("applovine native ads error =$status\n")
+                binding?.loadingTitle?.text = sb.toString()
+            }
+        }
 
     }
 
@@ -59,13 +74,32 @@ class NativeActivity : AppCompatActivity() {
                 layoutMain.removeAllViews()
                 layoutMain.addView(layout)
                 binding?.applovinNative?.let {
+                    applovineNative(it)
                 }
                 sb.append("Facebook native ads loaded\n")
                 binding?.loadingTitle?.text = sb.toString()
+
             } else {
                 binding?.applovinNative?.let {
                 }
                 sb.append("Facebook native ads error =$status\n")
+                binding?.loadingTitle?.text = sb.toString()
+            }
+        }
+    }
+
+    private fun applovineNative(layoutMain: LinearLayout) {
+        requestNativeApplovin(
+            "id"
+        ) { layout, status ->
+            if (status == LOADED_AD) {
+                layoutMain.visibility = View.VISIBLE
+                layoutMain.removeAllViews()
+                layoutMain.addView(layout)
+                sb.append("applovine native ads loaded\n")
+                binding?.loadingTitle?.text = sb.toString()
+            } else {
+                sb.append("applovine native ads error =$status\n")
                 binding?.loadingTitle?.text = sb.toString()
             }
         }
