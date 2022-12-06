@@ -44,7 +44,6 @@ fun Context.request(placement: String, isExitAds: Boolean, listener: (str: Strin
         })
 }
 
-
 fun Context.requestFacebook(placement: String, listener: (str: String) -> Unit) {
     interstitialAdFacebook = com.facebook.ads.InterstitialAd(this, placement)
     interstitialAdFacebook?.loadAd(
@@ -73,7 +72,6 @@ fun Context.requestFacebook(placement: String, listener: (str: String) -> Unit) 
             ?.build()
     )
 }
-
 
 fun requestIronSource(listener: (str: String) -> Unit) {
     if (!IronSource.isInterstitialReady()) {
@@ -110,160 +108,6 @@ fun requestIronSource(listener: (str: String) -> Unit) {
         })
 
     }
-}
-
-
-fun isExitLoaded(): Boolean {
-    return mInterstitialAd[1] != null || (applovineInterstitialAd[2] != null && applovineInterstitialAd[2]?.isReady == true)
-}
-
-fun isLoaded(): Boolean {
-    return mInterstitialAd[0] != null || IronSource.isInterstitialReady() || (applovineInterstitialAd[1] != null && applovineInterstitialAd[1]?.isReady == true)
-}
-
-fun isSplashLoaded(): Boolean {
-    return mInterstitialAd[0] != null || IronSource.isInterstitialReady() || (applovineInterstitialAd[0] != null && applovineInterstitialAd[0]?.isReady == true)
-}
-
-
-fun Activity.showExit(listener: () -> Unit) {
-    if (applovineInterstitialAd[2] != null && applovineInterstitialAd[2]?.isReady == true) {
-        applovineInterstitialAd[2]?.showAd()
-        applovineInterstitialAd[2]?.setListener(object : MaxAdListener {
-            override fun onAdLoaded(ad: MaxAd?) {
-
-            }
-
-            override fun onAdDisplayed(ad: MaxAd?) {
-
-            }
-
-            override fun onAdHidden(ad: MaxAd?) {
-                applovineInterstitialAd[2] = null
-                listener.invoke()
-            }
-
-            override fun onAdClicked(ad: MaxAd?) {
-
-            }
-
-            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
-
-            }
-
-            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
-
-            }
-        })
-    } else if (mInterstitialAd[1] != null) {
-        mInterstitialAd[1]?.show(this)
-        mInterstitialAd[1]?.fullScreenContentCallback = object : FullScreenContentCallback() {
-
-            override fun onAdDismissedFullScreenContent() {
-                mInterstitialAd[1] = null
-                listener.invoke()
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                super.onAdFailedToShowFullScreenContent(p0)
-                mInterstitialAd[1] = null
-                listener.invoke()
-            }
-        }
-    } else {
-        listener.invoke()
-    }
-}
-
-fun Activity.show(placementKey: String, listener: () -> Unit) {
-    if (applovineInterstitialAd[1] != null && applovineInterstitialAd[1]?.isReady == true) {
-        applovineInterstitialAd[1]?.showAd()
-        applovineInterstitialAd[1]?.setListener(object : MaxAdListener {
-            override fun onAdLoaded(ad: MaxAd?) {
-
-            }
-
-            override fun onAdDisplayed(ad: MaxAd?) {
-
-            }
-
-            override fun onAdHidden(ad: MaxAd?) {
-                applovineInterstitialAd[1] = null
-                listener.invoke()
-            }
-
-            override fun onAdClicked(ad: MaxAd?) {
-
-            }
-
-            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
-
-            }
-
-            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
-
-            }
-        })
-    } else if (IronSource.isInterstitialReady()) {
-        if (placementKey.isNotEmpty())
-            IronSource.showInterstitial(placementKey)
-        else
-            IronSource.showInterstitial()
-        IronSource.setInterstitialListener(object : InterstitialListener {
-            override fun onInterstitialAdReady() {
-            }
-
-            override fun onInterstitialAdLoadFailed(ironSourceError: IronSourceError) {
-
-            }
-
-            override fun onInterstitialAdOpened() {
-            }
-
-            override fun onInterstitialAdClosed() {
-                listener.invoke()
-            }
-
-            override fun onInterstitialAdShowSucceeded() {
-
-            }
-
-            override fun onInterstitialAdShowFailed(ironSourceError: IronSourceError) {
-
-            }
-
-            override fun onInterstitialAdClicked() {
-
-            }
-        })
-
-    } else if (mInterstitialAd[0] != null) {
-        mInterstitialAd[0]?.show(this)
-        mInterstitialAd[0]?.fullScreenContentCallback = object : FullScreenContentCallback() {
-
-            override fun onAdDismissedFullScreenContent() {
-                mInterstitialAd[0] = null
-                listener.invoke()
-            }
-
-            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
-                super.onAdFailedToShowFullScreenContent(p0)
-                mInterstitialAd[0] = null
-                listener.invoke()
-            }
-        }
-    } else {
-        listener.invoke()
-    }
-}
-
-fun isLoadedFacebook(): Boolean {
-    return interstitialAdFacebook != null && interstitialAdFacebook?.isAdLoaded == true
-}
-
-
-fun showFacebook() {
-    interstitialAdFacebook?.show()
 }
 
 fun Activity.requestSplashApplovin(id: String, callBack: (status: String) -> Unit) {
@@ -365,6 +209,238 @@ fun Activity.requestApplovine(id: String, isExitAds: Boolean, callBack: (status:
 
 }
 
+fun Activity.showExit(listener: () -> Unit) {
+    if (applovineInterstitialAd[2] != null && applovineInterstitialAd[2]?.isReady == true) {
+        applovineInterstitialAd[2]?.showAd()
+        applovineInterstitialAd[2]?.setListener(object : MaxAdListener {
+            override fun onAdLoaded(ad: MaxAd?) {
+
+            }
+
+            override fun onAdDisplayed(ad: MaxAd?) {
+
+            }
+
+            override fun onAdHidden(ad: MaxAd?) {
+                applovineInterstitialAd[2] = null
+                listener.invoke()
+            }
+
+            override fun onAdClicked(ad: MaxAd?) {
+
+            }
+
+            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
+
+            }
+
+            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
+
+            }
+        })
+    } else if (mInterstitialAd[1] != null) {
+        mInterstitialAd[1]?.show(this)
+        mInterstitialAd[1]?.fullScreenContentCallback = object : FullScreenContentCallback() {
+
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd[1] = null
+                listener.invoke()
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                super.onAdFailedToShowFullScreenContent(p0)
+                mInterstitialAd[1] = null
+                listener.invoke()
+            }
+        }
+    } else {
+        listener.invoke()
+    }
+}
+
+fun isExitLoaded(): Boolean {
+    return mInterstitialAd[1] != null || (applovineInterstitialAd[2] != null && applovineInterstitialAd[2]?.isReady == true)
+}
+
+fun isLoaded(): Boolean {
+    return mInterstitialAd[0] != null || IronSource.isInterstitialReady() || (applovineInterstitialAd[1] != null && applovineInterstitialAd[1]?.isReady == true)
+}
+
+fun isSplashLoaded(): Boolean {
+    return mInterstitialAd[0] != null || IronSource.isInterstitialReady() || (applovineInterstitialAd[0] != null && applovineInterstitialAd[0]?.isReady == true)
+}
+
+fun isLoadedFacebook(): Boolean {
+    return interstitialAdFacebook != null && interstitialAdFacebook?.isAdLoaded == true
+}
+
+fun Activity.show(placementKey: String, listener: () -> Unit) {
+    if (applovineInterstitialAd[1] != null && applovineInterstitialAd[1]?.isReady == true) {
+        applovineInterstitialAd[1]?.showAd()
+        applovineInterstitialAd[1]?.setListener(object : MaxAdListener {
+            override fun onAdLoaded(ad: MaxAd?) {
+
+            }
+
+            override fun onAdDisplayed(ad: MaxAd?) {
+
+            }
+
+            override fun onAdHidden(ad: MaxAd?) {
+                applovineInterstitialAd[1] = null
+                listener.invoke()
+            }
+
+            override fun onAdClicked(ad: MaxAd?) {
+
+            }
+
+            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
+
+            }
+
+            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
+
+            }
+        })
+    } else if (IronSource.isInterstitialReady()) {
+        if (placementKey.isNotEmpty())
+            IronSource.showInterstitial(placementKey)
+        else
+            IronSource.showInterstitial()
+        IronSource.setInterstitialListener(object : InterstitialListener {
+            override fun onInterstitialAdReady() {
+            }
+
+            override fun onInterstitialAdLoadFailed(ironSourceError: IronSourceError) {
+
+            }
+
+            override fun onInterstitialAdOpened() {
+            }
+
+            override fun onInterstitialAdClosed() {
+                listener.invoke()
+            }
+
+            override fun onInterstitialAdShowSucceeded() {
+
+            }
+
+            override fun onInterstitialAdShowFailed(ironSourceError: IronSourceError) {
+
+            }
+
+            override fun onInterstitialAdClicked() {
+
+            }
+        })
+
+    } else if (mInterstitialAd[0] != null) {
+        mInterstitialAd[0]?.show(this)
+        mInterstitialAd[0]?.fullScreenContentCallback = object : FullScreenContentCallback() {
+
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd[0] = null
+                listener.invoke()
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                super.onAdFailedToShowFullScreenContent(p0)
+                mInterstitialAd[0] = null
+                listener.invoke()
+            }
+        }
+    } else {
+        listener.invoke()
+    }
+}
+
+fun Activity.showSplash(placementKey: String, listener: () -> Unit) {
+    if (applovineInterstitialAd[0] != null && applovineInterstitialAd[0]?.isReady == true) {
+        applovineInterstitialAd[0]?.showAd()
+        applovineInterstitialAd[0]?.setListener(object : MaxAdListener {
+            override fun onAdLoaded(ad: MaxAd?) {
+
+            }
+
+            override fun onAdDisplayed(ad: MaxAd?) {
+
+            }
+
+            override fun onAdHidden(ad: MaxAd?) {
+                applovineInterstitialAd[0] = null
+                listener.invoke()
+            }
+
+            override fun onAdClicked(ad: MaxAd?) {
+
+            }
+
+            override fun onAdLoadFailed(adUnitId: String?, error: MaxError?) {
+
+            }
+
+            override fun onAdDisplayFailed(ad: MaxAd?, error: MaxError?) {
+
+            }
+        })
+    } else if (IronSource.isInterstitialReady()) {
+        if (placementKey.isNotEmpty())
+            IronSource.showInterstitial(placementKey)
+        else
+            IronSource.showInterstitial()
+        IronSource.setInterstitialListener(object : InterstitialListener {
+            override fun onInterstitialAdReady() {
+            }
+
+            override fun onInterstitialAdLoadFailed(ironSourceError: IronSourceError) {
+
+            }
+
+            override fun onInterstitialAdOpened() {
+            }
+
+            override fun onInterstitialAdClosed() {
+                listener.invoke()
+            }
+
+            override fun onInterstitialAdShowSucceeded() {
+
+            }
+
+            override fun onInterstitialAdShowFailed(ironSourceError: IronSourceError) {
+
+            }
+
+            override fun onInterstitialAdClicked() {
+
+            }
+        })
+
+    } else if (mInterstitialAd[0] != null) {
+        mInterstitialAd[0]?.show(this)
+        mInterstitialAd[0]?.fullScreenContentCallback = object : FullScreenContentCallback() {
+
+            override fun onAdDismissedFullScreenContent() {
+                mInterstitialAd[0] = null
+                listener.invoke()
+            }
+
+            override fun onAdFailedToShowFullScreenContent(p0: AdError) {
+                super.onAdFailedToShowFullScreenContent(p0)
+                mInterstitialAd[0] = null
+                listener.invoke()
+            }
+        }
+    } else {
+        listener.invoke()
+    }
+}
+
+fun showFacebook() {
+    interstitialAdFacebook?.show()
+}
 
 
 
