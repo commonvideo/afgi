@@ -24,6 +24,14 @@
         app:layout_constraintTop_toBottomOf="@+id/loadingText" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/inmobi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="InMobi"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/applovine" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/facebook"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

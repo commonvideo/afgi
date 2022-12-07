@@ -4,6 +4,7 @@
     package="com.afgi.demo">
 
     <application
+        android:name="com.afgi.demo.App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"

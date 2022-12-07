@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.util.DisplayMetrics
 import android.view.View
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RatingBar
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.widget.AppCompatButton
 import com.applovin.mediation.MaxAd
 import com.applovin.mediation.MaxAdViewAdListener
@@ -18,6 +15,10 @@ import com.facebook.ads.AdError
 import com.facebook.ads.AdSize.BANNER_HEIGHT_50
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.nativead.NativeAdView
+import com.inmobi.ads.AdMetaInfo
+import com.inmobi.ads.InMobiAdRequestStatus
+import com.inmobi.ads.InMobiBanner
+import com.inmobi.ads.listeners.BannerAdEventListener
 
 
 fun Activity.requestBanner(
@@ -53,6 +54,34 @@ fun Activity.requestBanner(
             listener.invoke(null, loadAdError.toString())
         }
     }
+
+}
+
+fun Activity.requestBannerInMobi(
+    placement: String,
+    listener: (layout: LinearLayout?, status: String) -> Unit
+) {
+    val bannerAd = InMobiBanner(this@requestBannerInMobi, placement.toLong())
+    bannerAd.load()
+
+    bannerAd.setListener(object : BannerAdEventListener(){
+
+        override fun onAdLoadSucceeded(p0: InMobiBanner, p1: AdMetaInfo) {
+            super.onAdLoadSucceeded(p0, p1)
+            val bannerLp: RelativeLayout.LayoutParams = RelativeLayout.LayoutParams( 1080,1920 )
+            bannerLp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            bannerLp.addRule(RelativeLayout.CENTER_HORIZONTAL)
+
+            val layout = LinearLayout(this@requestBannerInMobi)
+            layout.addView(bannerAd, bannerLp)
+            listener.invoke(layout, LOADED_AD)
+        }
+
+        override fun onAdLoadFailed(p0: InMobiBanner, p1: InMobiAdRequestStatus) {
+            super.onAdLoadFailed(p0, p1)
+            listener.invoke(null, p1.message)
+        }
+    })
 
 }
 
@@ -92,6 +121,7 @@ fun Activity.requestFacebookBanner(
 
         override fun onAdLoaded(p0: Ad?) {
             adView.layoutParams = LinearLayout.LayoutParams(width, heightPx)
+            layout.removeView(adView)
             layout.addView(adView)
             listener.invoke(layout, LOADED_AD)
         }

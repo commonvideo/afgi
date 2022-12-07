@@ -24,6 +24,19 @@ class NativeActivity : AppCompatActivity() {
             googleNative(it)
         }*/
 
+        requestNativeInMobi(idInMobiNative) { layout, status ->
+            if (status == LOADED_AD) {
+                binding?.inmobiNative?.visibility = View.VISIBLE
+                binding?.inmobiNative?.removeAllViews()
+                binding?.inmobiNative?.addView(layout)
+                sb.append("inmobi native ads loaded\n")
+                binding?.loadingTitle?.text = sb.toString()
+            } else {
+                sb.append("inmobi native ads error =$status\n")
+                binding?.loadingTitle?.text = sb.toString()
+            }
+        }
+
 
         requestNativeApplovin(
             "id"

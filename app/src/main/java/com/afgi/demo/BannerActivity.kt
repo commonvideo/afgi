@@ -21,6 +21,19 @@ class BannerActivity : AppCompatActivity() {
             googleBanner(it)
         }
 
+
+
+        requestBannerInMobi(idInMobiBanner) { layout, status ->
+            if (status == LOADED_AD) {
+                binding?.bannerInMobiAds?.visibility = View.VISIBLE
+                binding?.bannerInMobiAds?.removeAllViews()
+                binding?.bannerInMobiAds?.addView(layout)
+                sb.append("InMobi Banner loaded\n")
+            } else {
+                sb.append("InMobi Banner error=$status \n")
+            }
+        }
+
         requestAppLovinBanner("id") { layout, status ->
             if (status == LOADED_AD) {
                 binding?.bannerApplovinAds?.visibility = View.VISIBLE

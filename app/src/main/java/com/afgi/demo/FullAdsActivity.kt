@@ -16,6 +16,16 @@ class FullAdsActivity : AppCompatActivity() {
         binding = ActivityFullAdsBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        binding?.inmobi?.setOnClickListener {
+            binding?.loadingText?.text = "InMobi Loading..."
+            requestInMobi(idInMobiIntertitial, isExitAds = false) {
+                if (it != LOADED_AD) {
+                    binding?.loadingText?.text = it
+                } else binding?.loadingText?.text = it
+            }
+            showAd()
+        }
+
         binding?.google?.setOnClickListener {
             binding?.loadingText?.text = "Google Loading..."
             request(idFullScreen, isExitAds = false) {
