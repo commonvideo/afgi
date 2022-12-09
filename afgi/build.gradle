@@ -69,7 +69,6 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.multidex:multidex:2.0.1'
     implementation 'com.google.ads.mediation:inmobi:10.1.2.0'
-    implementation 'com.applovin.mediation:inmobi-adapter:7.2.2.0'
 
 }
 
@@ -80,7 +79,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'beta-uv-0.0.1'
+                version = 'uv-0.0.1'
             }
         }
     }
