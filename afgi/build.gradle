@@ -79,7 +79,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'livi-0.0.2'
+                version = 'fireglobalvideocall-0.0.1'
             }
         }
     }
