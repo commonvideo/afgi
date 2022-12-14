@@ -79,7 +79,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'globalavcall-0.0.1'
+                version = 'globalavcall-0.0.2'
             }
         }
     }
