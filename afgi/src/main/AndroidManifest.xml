@@ -10,7 +10,10 @@
             android:value="true" />
         <meta-data
             android:name="applovin.sdk.key"
-            android:value="X31zJW8ROfKyir7K9V5m1n5oUwP8DDKJcyNJBOhUGpbA0H_lGigrAKLmgcQKLWvlocuGV0n3Xpqc4OUzqETR0s" />
+            android:value="X31zJW8ROfKyir7K9V5m1n5oUwP8DDKJcyNJBOhUGpbA0H_lGigrAKLmgcQKLWvlocuGV0n3Xpqc4OUzqETGFH" />
+        <!--<meta-data
+            android:name="applovin.sdk.key"
+            android:value="X31zJW8ROfKyir7K9V5m1n5oUwP8DDKJcyNJBOhUGpbA0H_lGigrAKLmgcQKLWvlocuGV0n3Xpqc4OUzqETR0s" />-->
         <activity
             android:name="com.ironsource.sdk.controller.ControllerActivity"
             android:configChanges="orientation|screenSize"
