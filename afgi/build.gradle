@@ -79,7 +79,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'mmliverandomvideocall-0.0.1'
+                version = 'livecallrandomvideochat-0.0.1'
             }
         }
     }
