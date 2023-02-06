@@ -465,7 +465,7 @@ fun Activity.inflateAdHome(
     // Add the AdOptionsView
     try {
         val adChoicesContainer =
-            adView.findViewById<LinearLayout>(R.id.adChoicesContainerLib)
+            adView.findViewById<LinearLayout>(R.id.adChoicesContainerLibhome)
         val adOptionsView = AdOptionsView(this, nativeAd, nativeAdLayout)
         try {
             adChoicesContainer.removeAllViews()
@@ -477,16 +477,16 @@ fun Activity.inflateAdHome(
 
         // Create native UI using the ad metadata.
         val nativeAdIcon: com.facebook.ads.MediaView =
-            adView.findViewById(R.id.nativeAdIconLib)
-        val nativeAdTitle = adView.findViewById<AppCompatTextView>(R.id.nativeAdTitleLib)
+            adView.findViewById(R.id.nativeAdIconLibhome)
+        val nativeAdTitle = adView.findViewById<AppCompatTextView>(R.id.nativeAdTitleLibhome)
         val nativeAdMedia: com.facebook.ads.MediaView =
-            adView.findViewById(R.id.nativeAdMediaLib)
+            adView.findViewById(R.id.nativeAdMediaLibhome)
         /*TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);*/
-        val nativeAdBody = adView.findViewById<AppCompatTextView>(R.id.nativeAdBodyLib)
+        val nativeAdBody = adView.findViewById<AppCompatTextView>(R.id.nativeAdBodyLibhome)
         val sponsoredLabel =
-            adView.findViewById<AppCompatTextView>(R.id.nativeAdSponsoredLabelLib)
+            adView.findViewById<AppCompatTextView>(R.id.nativeAdSponsoredLabelLibhome)
         val nativeAdCallToAction =
-            adView.findViewById<AppCompatButton>(R.id.nativeAdCallToActionLib)
+            adView.findViewById<AppCompatButton>(R.id.nativeAdCallToActionLibhome)
 
         nativeAdCallToAction.setBackgroundResource(color[0])
         nativeAdCallToAction.setTextColor(ContextCompat.getColor(this, color[1]))

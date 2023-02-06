@@ -22,7 +22,7 @@
                 android:orientation="vertical">
 
                 <com.facebook.ads.MediaView
-                    android:id="@+id/nativeAdMediaLib"
+                    android:id="@+id/nativeAdMediaLibhome"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_horizontal"
@@ -39,7 +39,7 @@
                 android:padding="8dp">
 
                 <com.facebook.ads.MediaView
-                    android:id="@+id/nativeAdIconLib"
+                    android:id="@+id/nativeAdIconLibhome"
                     android:layout_width="45dp"
                     android:layout_height="45dp" />
 
@@ -50,7 +50,7 @@
                     android:paddingLeft="10dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/nativeAdTitleLib"
+                        android:id="@+id/nativeAdTitleLibhome"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -59,7 +59,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/nativeAdBodyLib"
+                        android:id="@+id/nativeAdBodyLibhome"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
@@ -71,7 +71,7 @@
             </LinearLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/nativeAdCallToActionLib"
+                android:id="@+id/nativeAdCallToActionLibhome"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
                 android:layout_gravity="center_vertical"
@@ -82,7 +82,7 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/nativeAdSponsoredLabelLib"
+            android:id="@+id/nativeAdSponsoredLabelLibhome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -96,7 +96,7 @@
             android:visibility="visible" />
 
         <LinearLayout
-            android:id="@+id/adChoicesContainerLib"
+            android:id="@+id/adChoicesContainerLibhome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
