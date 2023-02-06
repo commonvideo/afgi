@@ -199,6 +199,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_32sdp"
                     android:layout_margin="@dimen/_3sdp"
+                    android:background="@drawable/btn_ads_round_corner"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:textColor="@android:color/white"

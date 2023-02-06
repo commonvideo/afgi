@@ -52,7 +52,7 @@ class NativeActivity : AppCompatActivity() {
                 binding?.loadingTitle?.text = sb.toString()
             }
         }
-//        googleNative(binding!!.googleNatives)
+        googleNative(binding!!.googleNatives)
     }
 
     private fun googleNative(layoutMain: LinearLayout) {
@@ -78,7 +78,7 @@ class NativeActivity : AppCompatActivity() {
     }
 
     private fun facebookNative(layoutMain: LinearLayout) {
-        requestNativeFacebook(
+        requestNativeFacebookHome(
             color = listColor,
             "YOUR_PLACEMENT_ID"
         ) { layout, status ->

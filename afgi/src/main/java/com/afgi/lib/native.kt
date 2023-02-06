@@ -57,7 +57,8 @@ fun Activity.requestNative(
                 val adHeadline = adView.findViewById<AppCompatTextView>(R.id.ad_headline)
                 val adBody = adView.findViewById<AppCompatTextView>(R.id.ad_body)
 
-                btn.setBackgroundResource(color[0])
+//                btn.setBackgroundResource(color[0])
+                btn.backgroundTintList = resources.getColorStateList(color[0])
                 btn.setTextColor(ContextCompat.getColor(this, color[1]))
 
                 adHeadline.setTextColor(ContextCompat.getColor(this, color[2]))
@@ -238,7 +239,8 @@ fun Activity.inflateAd(
         val nativeAdCallToAction =
             adView.findViewById<AppCompatButton>(R.id.nativeAdCallToActionLib)
 
-        nativeAdCallToAction.setBackgroundResource(color[0])
+//        nativeAdCallToAction.setBackgroundResource(color[0])
+        nativeAdCallToAction.backgroundTintList = resources.getColorStateList(color[0])
         nativeAdCallToAction.setTextColor(ContextCompat.getColor(this, color[1]))
         nativeAdTitle.setTextColor(ContextCompat.getColor(this, color[2]))
 
@@ -307,7 +309,8 @@ fun Activity.requestNativeHome(
                 val adHeadline = adView.findViewById<AppCompatTextView>(R.id.ad_headline)
                 val adBody = adView.findViewById<AppCompatTextView>(R.id.ad_body)
 
-                btn.setBackgroundResource(color[0])
+//                btn.setBackgroundResource(color[0])
+                btn.backgroundTintList = resources.getColorStateList(color[0])
                 btn.setTextColor(ContextCompat.getColor(this, color[1]))
 
                 adHeadline.setTextColor(ContextCompat.getColor(this, color[2]))
@@ -404,7 +407,7 @@ fun Activity.requestNativeFacebookHome(
     placement: String,
     listener: (layout: LinearLayout?, status: String) -> Unit
 ) {
-    val nativeAd = com.facebook.ads.NativeAd(this, placement)
+    val nativeAd = com.facebook.ads.NativeBannerAd(this, placement)
     nativeAd.loadAd(nativeAd.buildLoadAdConfig().withAdListener(object : NativeAdListener {
         override fun onError(p0: Ad?, p1: AdError?) {
             listener.invoke(null, "errorCode= ${p1?.errorCode} errorMessage=${p1?.errorMessage}")
@@ -444,7 +447,7 @@ fun Activity.requestNativeFacebookHome(
 }
 
 fun Activity.inflateAdHome(
-    nativeAd: com.facebook.ads.NativeAd,
+    nativeAd: NativeBannerAd,
     layout: LinearLayout,
     color: IntArray,
     listener: (status: String) -> Unit
@@ -465,7 +468,7 @@ fun Activity.inflateAdHome(
     // Add the AdOptionsView
     try {
         val adChoicesContainer =
-            adView.findViewById<LinearLayout>(R.id.adChoicesContainerLibhome)
+            adView.findViewById<RelativeLayout>(R.id.ad_choices_container)
         val adOptionsView = AdOptionsView(this, nativeAd, nativeAdLayout)
         try {
             adChoicesContainer.removeAllViews()
@@ -477,26 +480,27 @@ fun Activity.inflateAdHome(
 
         // Create native UI using the ad metadata.
         val nativeAdIcon: com.facebook.ads.MediaView =
-            adView.findViewById(R.id.nativeAdIconLibhome)
-        val nativeAdTitle = adView.findViewById<AppCompatTextView>(R.id.nativeAdTitleLibhome)
-        val nativeAdMedia: com.facebook.ads.MediaView =
-            adView.findViewById(R.id.nativeAdMediaLibhome)
+            adView.findViewById(R.id.native_icon_view)
+        val nativeAdTitle = adView.findViewById<TextView>(R.id.native_ad_title)
+//        val nativeAdMedia: com.facebook.ads.MediaView =
+//            adView.findViewById(R.id.nativeAdMediaLibhome)
         /*TextView nativeAdSocialContext = adView.findViewById(R.id.native_ad_social_context);*/
-        val nativeAdBody = adView.findViewById<AppCompatTextView>(R.id.nativeAdBodyLibhome)
+//        val nativeAdBody = adView.findViewById<AppCompatTextView>(R.id.nativeAdBodyLibhome)
         val sponsoredLabel =
-            adView.findViewById<AppCompatTextView>(R.id.nativeAdSponsoredLabelLibhome)
+            adView.findViewById<TextView>(R.id.native_ad_sponsored_label)
         val nativeAdCallToAction =
-            adView.findViewById<AppCompatButton>(R.id.nativeAdCallToActionLibhome)
+            adView.findViewById<Button>(R.id.native_ad_call_to_action)
 
-        nativeAdCallToAction.setBackgroundResource(color[0])
+//        nativeAdCallToAction.setBackgroundResource(color[0])
+        nativeAdCallToAction.backgroundTintList = resources.getColorStateList(color[0])
         nativeAdCallToAction.setTextColor(ContextCompat.getColor(this, color[1]))
         nativeAdTitle.setTextColor(ContextCompat.getColor(this, color[2]))
 
-        nativeAdBody.setTextColor(ContextCompat.getColor(this, color[3]))
+//        nativeAdBody.setTextColor(ContextCompat.getColor(this, color[3]))
 
         // Set the Text.
         nativeAdTitle.text = nativeAd.advertiserName
-        nativeAdBody.text = nativeAd.adBodyText
+//        nativeAdBody.text = nativeAd.adBodyText
         /*nativeAdSocialContext.setText(nativeAd.getAdSocialContext());*/
         nativeAdCallToAction.visibility =
             if (nativeAd.hasCallToAction()) View.VISIBLE else View.INVISIBLE
@@ -511,7 +515,6 @@ fun Activity.inflateAdHome(
         // Register the Title and CTA button to listen for clicks.
         nativeAd.registerViewForInteraction(
             adView,
-            nativeAdMedia,
             nativeAdIcon,
             clickableViews
         )
