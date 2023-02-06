@@ -314,7 +314,7 @@ fun Activity.requestNativeHome(
 
                 adBody.setTextColor(ContextCompat.getColor(this, color[3]))
 
-                populateUnifiedNativeAdViewLarge(nativeAd, adView)
+                populateUnifiedNativeAdViewLargeHome(nativeAd, adView)
                 layout?.addView(adView)
                 adView.bringToFront()
                 layout?.invalidate()

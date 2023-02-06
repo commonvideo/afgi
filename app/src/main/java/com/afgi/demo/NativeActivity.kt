@@ -52,7 +52,7 @@ class NativeActivity : AppCompatActivity() {
                 binding?.loadingTitle?.text = sb.toString()
             }
         }
-
+//        googleNative(binding!!.googleNatives)
     }
 
     private fun googleNative(layoutMain: LinearLayout) {

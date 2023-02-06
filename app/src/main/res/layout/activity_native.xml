@@ -32,7 +32,7 @@
             android:orientation="vertical" />
 
         <LinearLayout
-            android:id="@+id/googleNative"
+            android:id="@+id/googleNatives"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_230sdp"
             android:layout_margin="@dimen/_5sdp"
