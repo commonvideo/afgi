@@ -354,7 +354,7 @@ private fun populateUnifiedNativeAdViewLargeHome(nativeAd: NativeAd, adView: Nat
     adView.callToActionView = adView.findViewById(R.id.ad_call_to_action)
     adView.iconView = adView.findViewById(R.id.ad_app_icon)
     adView.priceView = adView.findViewById(R.id.ad_price)
-    adView.starRatingView = adView.findViewById(R.id.ad_stars)
+//    adView.starRatingView = adView.findViewById(R.id.ad_stars)
     adView.storeView = adView.findViewById(R.id.ad_store)
     adView.advertiserView = adView.findViewById(R.id.ad_advertiser)
 
@@ -385,13 +385,13 @@ private fun populateUnifiedNativeAdViewLargeHome(nativeAd: NativeAd, adView: Nat
         adView.storeView!!.visibility = View.VISIBLE
         (adView.storeView as AppCompatTextView?)!!.text = nativeAd.store
     }
-    if (nativeAd.starRating == null) {
+    /*if (nativeAd.starRating == null) {
         adView.starRatingView!!.visibility = View.GONE
     } else {
         (adView.starRatingView as RatingBar?)
             ?.setRating(nativeAd.starRating!!.toFloat())
         adView.starRatingView!!.visibility = View.VISIBLE
-    }
+    }*/
     if (nativeAd.advertiser == null) {
         adView.advertiserView!!.visibility = View.GONE
     } else {
