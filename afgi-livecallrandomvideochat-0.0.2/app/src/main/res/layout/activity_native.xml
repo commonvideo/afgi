@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.afgi.demo.NativeActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp">
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/loadingTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp" />
+
+        <LinearLayout
+            android:id="@+id/applovinNative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/googleNative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/facebookNative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical" />
+
+        <LinearLayout
+            android:id="@+id/inmobiNative"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_230sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:orientation="vertical" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>
