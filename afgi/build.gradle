@@ -74,7 +74,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'hdvideodownloader-0.0.18'
+                version = 'hdvideodownloader-0.0.19'
             }
         }
     }
