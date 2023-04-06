@@ -67,7 +67,7 @@ dependencies {
     implementation 'androidx.browser:browser:1.5.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'androidx.multidex:multidex:2.0.1'
-    implementation 'com.google.ads.mediation:inmobi:10.5.4.0'
+    implementation 'com.google.ads.mediation:inmobi:10.1.2.0'
 
 }
 
@@ -78,7 +78,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'livecallrandomcall-0.0.2'
+                version = 'livecallrandomcall-0.0.3'
             }
         }
     }
