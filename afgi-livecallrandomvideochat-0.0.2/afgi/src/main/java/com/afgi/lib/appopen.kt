@@ -121,6 +121,7 @@ fun Activity.showAppOpen(callBack: () -> Unit) {
         appOpenAd?.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 appOpenAd = null
+
                 callBack.invoke()
             }
 
