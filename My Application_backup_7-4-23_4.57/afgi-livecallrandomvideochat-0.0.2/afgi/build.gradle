@@ -78,7 +78,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.commonvideo'
                 artifactId = 'afgi'
-                version = 'liveglobalvideocamcall-0.0.7'
+                version = 'liveglobalvideocamcall-0.0.8'
             }
         }
     }
